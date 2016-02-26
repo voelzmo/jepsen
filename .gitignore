@@ -21,7 +21,6 @@ build
 site/**
 bench/**
 */target/**
-*/checkouts/**
 */store/**
 */report/**
 */timeline.html

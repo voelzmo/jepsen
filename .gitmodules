@@ -1,0 +1,3 @@
+[submodule "jepsen/checkouts/knossos"]
+	path = jepsen/checkouts/knossos
+	url = git@github.com:aphyr/knossos.git
