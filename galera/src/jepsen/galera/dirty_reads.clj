@@ -117,4 +117,5 @@
      :nemesis nemesis/noop
      :checker (checker/compose
                 {:perf (checker/perf)
-                 :dirty-reads (checker)})}))
+                 :dirty-reads (checker)})
+     :ssh {:username "vcap", :private-key-path "~/.ssh/id_rsa"}}))
