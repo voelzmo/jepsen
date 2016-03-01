@@ -118,4 +118,4 @@
      :checker (checker/compose
                 {:perf (checker/perf)
                  :dirty-reads (checker)})
-     :ssh {:username "vcap", :private-key-path "~/.ssh/id_rsa"}}))
+     :ssh {:username "vcap", :private-key-path "/var/vcap/jobs/control-node/config/id_rsa"}}))
