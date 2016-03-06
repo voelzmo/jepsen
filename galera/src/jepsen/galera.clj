@@ -34,27 +34,29 @@
 (defn install!
   "Downloads and installs the galera packages."
   [node version]
-  (debian/add-repo!
-    :galera
-    "deb http://sfo1.mirrors.digitalocean.com/mariadb/repo/10.0/debian jessie main"
-    "keyserver.ubuntu.com"
-    "0xcbcb082a1bb943db")
-
-  (c/su
-    (c/exec :echo "mariadb-galera-server-10.0 mysql-server/root_password password jepsen" | :debconf-set-selections)
-    (c/exec :echo "mariadb-galera-server-10.0 mysql-server/root_password_again password jepsen" | :debconf-set-selections)
-    (c/exec :echo "mariadb-galera-server-10.0 mysql-server-5.1/start_on_boot boolean false" | :debconf-set-selections)
-
-    (debian/install [:rsync])
-
-    (when-not (debian/installed? :mariadb-galera-server)
-      (info node "Installing galera")
-      (debian/install [:mariadb-galera-server])
-
-      (c/exec :service :mysql :stop)
-      ; Squirrel away a copy of the data files
-      (c/exec :rm :-rf stock-dir)
-      (c/exec :cp :-rp dir stock-dir))))
+  ; no-op
+  ; (debian/add-repo!
+  ;   :galera
+  ;   "deb http://sfo1.mirrors.digitalocean.com/mariadb/repo/10.0/debian jessie main"
+  ;   "keyserver.ubuntu.com"
+  ;   "0xcbcb082a1bb943db")
+  ;
+  ; (c/su
+  ;   (c/exec :echo "mariadb-galera-server-10.0 mysql-server/root_password password jepsen" | :debconf-set-selections)
+  ;   (c/exec :echo "mariadb-galera-server-10.0 mysql-server/root_password_again password jepsen" | :debconf-set-selections)
+  ;   (c/exec :echo "mariadb-galera-server-10.0 mysql-server-5.1/start_on_boot boolean false" | :debconf-set-selections)
+  ;
+  ;   (debian/install [:rsync])
+  ;
+  ;   (when-not (debian/installed? :mariadb-galera-server)
+  ;     (info node "Installing galera")
+  ;     (debian/install [:mariadb-galera-server])
+  ;
+  ;     (c/exec :service :mysql :stop)
+  ;     ; Squirrel away a copy of the data files
+  ;     (c/exec :rm :-rf stock-dir)
+  ;     (c/exec :cp :-rp dir stock-dir)))
+      )
 
 (defn cluster-address
   "Connection string for a test."
@@ -76,6 +78,7 @@
   "Stops sql daemon."
   [node]
   (info node "stopping mysqld")
+  ; TODO this should probably be 'monit stop' or something
   (meh (cu/grepkill! "mysqld")))
 
 (defn eval!
