@@ -17,7 +17,7 @@
              [util :refer [timeout meh]]]
             [jepsen.control.util :as cu]
             [jepsen.control.net :as cn]
-            [jepsen.os.debian :as debian]
+            [jepsen.os :as os]
             [clojure.java.jdbc :as j]
             [honeysql [core :as sql]
                       [helpers :as h]]))
@@ -193,7 +193,7 @@
   [opts]
   (merge tests/noop-test
          {:name (str "galera " (:name opts))
-          :os   debian/os
+          :os   os/noop
           :db   (db (:version opts))
           :nemesis (nemesis/partition-random-halves)}
          (dissoc opts :name :version)))
